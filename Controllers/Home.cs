@@ -8,13 +8,14 @@ using System;
 [Route("/")]
 public class HomeController : Controller
 {
-    private IRepository<Card> cards;
-    private IRepository<CardList> lists;
-    private IRepository<Board> boards;
-    public HomeController(IRepository<Card> cards, IRepository<CardList> lists, IRepository<Board> boards){
-        this.cards = cards;
-        this.lists = lists;
-        this.boards = boards;
+    private DB db;
+    private IRepository<BNB> bnbs;
+    private IRepository<Message> messages;
+   // private IRepository<Board> boards;
+    public HomeController(DB db, IRepository<BNB> bnbs, IRepository<Message> messages){
+        this.db = db;
+        this.bnbs = bnbs;
+        this.messages = messages;
     }
 
     [HttpGet("/{username?}")]

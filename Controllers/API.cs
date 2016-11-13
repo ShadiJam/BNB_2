@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
-
+/*
 [Route("/api/card")]
 public class CardController : CRUDController<Card> {
     public CardController(IRepository<Card> r) : base(r){}
@@ -24,3 +24,4 @@ public class CardListController : CRUDController<CardList> {
 public class BoardController : CRUDController<Board> {
     public BoardController(IRepository<Board> r) : base(r){}
 }
+*/

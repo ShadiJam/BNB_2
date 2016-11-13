@@ -11,53 +11,56 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-public class Card : HasId
+public class BNB : HasId
 {
     [Required]
     public int Id { get; set; }
     [Required]
-    public string Title { get; set; }
+    public string Name { get; set; }
     [Required]
-    [StringLength(250, MinimumLength = 10)]
-    public string Text { get; set; }
-
-    public int CardListId {get;set;}
+    public List<Message> Messages { get; set; } = new List<Message>();
 }
 
-public class CardList : HasId {
+public class Message : HasId {
     [Required]
     public int Id { get; set; }
     [Required]
-    public string Summary { get; set; }
-    [Required]
-    public List<Card> Cards { get; set; }
+    public string Text { get; set; } = "";
+    
+    public int BnbId { get; set; }
+    public BNB BNB { get; set; }
 
-    public int BoardId {get;set;}
+    public int VisitorId { get; set; }
+    public Visitor Visitor { get; set; }
 }
 
-public class Board : HasId {
+public class Visitor : HasId {
     [Required]
     public int Id { get; set; }
     [Required]
-    public string Title { get; set; }
-    [Required]
-    public List<CardList> Lists { get; set; }
+    public string Name { get; set; }
 }
+
 
 // declare the DbSet<T>'s of our DB context, thus creating the tables
 public partial class DB : IdentityDbContext<IdentityUser> {
-    public DbSet<Card> Cards { get; set; }
-    public DbSet<CardList> CardLists { get; set; }
-    public DbSet<Board> Boards { get; set; }
+    public DbSet<BNB> BNBs { get; set; }
+    public DbSet<Message> Messages { get; set; }
+    public DbSet<Visitor> Visitors { get; set; }
 }
 
 // create a Repo<T> services
+
 public partial class Handler {
     public void RegisterRepos(IServiceCollection services){
-        Repo<Card>.Register(services, "Cards");
-        Repo<CardList>.Register(services, "CardLists",
-            d => d.Include(l => l.Cards));
-        Repo<Board>.Register(services, "Boards",
-            d => d.Include(b => b.Lists).ThenInclude(l => l.Cards));
+        Repo<BNB>.Register(services, "BNBs", 
+            dbset => dbset
+                .Include(x => x.Messages)
+                .ThenInclude(x => x.Visitor));
+        Repo<Message>.Register(services, "Messages",
+            dbset => dbset
+                .Include(x => x.Visitor));
+        Repo<Visitor>.Register(services, "Visitors");
+            
     }
-}
+} 

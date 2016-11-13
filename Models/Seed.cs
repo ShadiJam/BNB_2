@@ -15,25 +15,14 @@ public static class Seed
             db.Database.EnsureCreated();
         }
         if(mustMigrate) db.Database.Migrate();
+
+        if(db.BNBs.Any()) return;
+        var m = new Message { Text = "Hi", Visitor = new Visitor { Name = "Shadi" } };
+        var b = new BNB { Name = "Fawlty Towers" };
         
-        if(db.Cards.Any() || db.CardLists.Any()) return;
-
-        Board b = new Board { Title = "Test Board", Lists = new List<CardList>() };
-
-        Action createList = () => {
-            CardList todo = new CardList { Summary="Todo items", Cards = new List<Card>() };
-
-            for(var i = 0; i < 10; i++)
-                todo.Cards.Add(new Card { Title = $"Test Card {i}", Text = $"Test Content {i}",  });
-            
-            b.Lists.Add(todo);
-        };
-
-        for(var j = 0; j<3; j++)
-            createList();
-        
-        db.Boards.Add(b);
+        b.Messages.Add(m);
+        db.BNBs.Add(b);
         db.SaveChanges(); 
-        Console.WriteLine("----------DB SEEDED-------------");
+        
     }
 }
