@@ -1,0 +1,19 @@
+@model LoginVM
+
+<div asp-validation-summar="All"></div>
+
+<p> Please Log In </p>
+
+<form asp-controller="Home" asp-action="Login">
+    <div><input asp-for="Email"></div>
+    <div><input asp-for="Password"></div>
+    <button type="submit">Log In</button>
+</form>
+
+<p> Or create an account </p>
+
+<form asp-controller="Home" asp-action="Register">
+    <div><input asp-for="Email"></div>
+    <div><input asp-for="Password"></div>
+    <button type="submit">Log In</button>
+</form>

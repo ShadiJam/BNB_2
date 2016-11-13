@@ -1,0 +1,14 @@
+@model Message
+
+<form asp-controller="Home" asp-action="CreateMessage">
+    <div asp-validation-summary="All"></div>
+
+    <div>
+        <lavel asp-for="Text"/>
+        <input asp-for="Text">
+    </div>
+
+    <input asp-for="BnbId" value="Model.BNB.Id" hidden>
+
+    <button type="submit">Leave a message</button>
+</form>

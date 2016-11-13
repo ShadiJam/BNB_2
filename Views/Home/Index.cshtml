@@ -1,7 +1,19 @@
-
+@model IEnumerable<BNB>
 <div>
-    <h1>Hello @ViewBag.Username from a view</h1>
-    <!--<p>@Model</p>-->
+    <h1>Welcome to Fawlty Towers</h1>
+
+<hr>
+
+<p>You have a choice of @Model.Count() B&B's available.</p>
+
+<p>Add a <a href="/bnb/new">new B&B.</a>
+
+<div class="grid grid-2-800 grid-3-1024">
+    @foreach(var bnb in Model){
+        <a href="/bnb/@bnb.Id">
+                <h5>@bnb.Name</h5>
+        </a>
+    }
 </div>
 
 @*

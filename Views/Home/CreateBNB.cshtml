@@ -1,0 +1,14 @@
+@model BNB
+
+<h1> Add a new B&B </h1>
+
+<hr>
+
+<form asp-controller="Home" asp-action="CreateBNB">
+    <div asp-validation-summary="All"></div>
+
+    <label asp-for="Name"></label>
+    <input asp-for="Name">
+
+    <button type="submit">Add!</button>
+</form>

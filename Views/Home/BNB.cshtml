@@ -1,0 +1,22 @@
+@model BNB
+
+<h1>@Model.Name</h1>
+
+<hr>
+
+@if(@Model.Messages.Count() != 0) {
+    <ul>
+        @foreach(var m in @Model.Messages){
+            <li>@m.Text - <em>@m.Visitor.Name</em></li>
+        }
+    </ul>
+    } else {
+        <p> No one has left a message for @Model.Name yet. </p>
+    }
+
+    <hr>
+
+    <div asp-validation-summary="All"></div>
+
+    <p> Would you like to leave a message for @Model.Name? </p>
+    @Html.Partial("CreateMessage", new Message{ BNB = @Model })

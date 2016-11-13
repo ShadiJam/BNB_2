@@ -48,7 +48,7 @@ public partial class Handler {
     // configure your app
     // --------------------------------------------------------
     protected SessionOptions _session = SessionOptions.Cookie;
-    protected bool _convertConnectionString = false;
+    protected bool _convertConnectionString = true;
     protected DatabaseOptions _db = DatabaseOptions.Sqlite;
     protected RestfulOptions _restful = RestfulOptions.CORS;
     protected SwaggerOptions _swagger = SwaggerOptions.UI;
