@@ -28,28 +28,27 @@ public class LoginVM
 public class HomeController : Controller
 {
     private DB db;
-    private IRepository<BNB> bnbs;
-    private IRepository<Message> messages;
-    private IRepository<Visitor> visitors;
+    private IRepository<BNB> bnb;
     private IAuthService auth;
    
-    public HomeController(DB db, IRepository<BNB> bnbs, IRepository<Message> messages, IRepository<Visitor> visitors, IAuthService auth){
+    public HomeController(DB db, IRepository<BNB> bnb, IAuthService auth){
         this.db = db;
-        this.bnbs = bnbs;
-        this.messages = messages;
-        this.visitors = visitors;
+        this.bnb = bnb;
         this.auth = auth;
     }
 
     [HttpGet]
     [AllowAnonymous]
-    public async Task<IActionResult> Root()
+    public IActionResult Root()
     {
       return View("Index", db.BNBs.ToList());
     }
 
     [HttpGet("bnb/new")]
-    public IActionResult CreateBNB() => View("CreateBNB");
+    public IActionResult CreateBNB() 
+    {
+        return View("CreateBNB");
+    } 
 
     [HttpPost("bnb/new")]
     [ValidateAntiForgeryToken]
@@ -66,7 +65,7 @@ public class HomeController : Controller
     [HttpGet("bnb/{id}")]
     public async Task<IActionResult> BNB(int id)
     {
-        BNB item = bnbs.Read(id);
+        BNB item = bnb.Read(id);
         if(item == null) return NotFound();
         return View("BNB", item);
     }
@@ -85,12 +84,15 @@ public class HomeController : Controller
             db.Messages.Add(m);
             db.SaveChanges();
         }
-        return Redirect($"/bnb.{id}");
+        return Redirect($"/bnb/{id}");
     }
 
     [HttpGet("login")]
     [AllowAnonymous]
-    public IActionResult Login() => View("Login");
+    public IActionResult Login() 
+    {
+        return View("Login");
+    }
 
     [HttpPost("login")]
     [AllowAnonymous]
@@ -139,4 +141,3 @@ public class HomeController : Controller
 
     // [HttpGet("sql/boards")] // ?sql=....
     // public IActionResult SqlBoards([FromQuery]string sql) => Ok(boards.FromSql(sql));
-}
