@@ -17,7 +17,7 @@ public static class Seed
         if(mustMigrate) db.Database.Migrate();
 
         if(db.BNBs.Any()) return;
-        var m = new Message { Text = "Hi", Visitor = new Visitor { Name = "" } };
+        var m = new Message { Text = "", Visitor = new Visitor { Name = "" }};
         var b = new BNB { Name = "" };
         
         b.Messages.Add(m);

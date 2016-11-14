@@ -9,14 +9,10 @@
         @foreach(var m in @Model.Messages){
             <li>@m.Text - <em>@m.Visitor.Name</em></li>
         }
-   </ul>
-        } else {
-             <p> "There are no messages yet." </p>
+        </ul>
+             } else {
+                <p> There are no messages yet. </p>
         }
-
-
-
-
     
 
     <p> Would you like to leave a message for @Model.Name? </p>
